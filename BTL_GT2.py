@@ -4,6 +4,7 @@ from matplotlib import cm
 from sympy import symbols, sympify, lambdify
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.patches import Arc
+import math
 
 #INP
 x, y = symbols('x y')
@@ -20,14 +21,21 @@ pdelta = 10**(-9)
 ndelta = -10**(-9)
 D_x1 = round((func(x0 + ndelta,y0) - func(x0,y0))/ndelta,2)
 D_x2 = round((func(x0 + pdelta,y0) - func(x0,y0))/pdelta,2)
-if round(D_x1 - D_x2) != 0:
+if math.isnan(D_x2) or math.isnan(D_x1):
     D_x2 = "Không tồn tại đạo hàm riêng theo biến x tại M0"
     xboo = False
+elif round(D_x1 - D_x2) != 0:
+    D_x2 = "Không tồn tại đạo hàm riêng theo biến x tại M0"
+    xboo = False
+print(D_x1)
 
 #Cal Y - Partial Derivative
 D_y1 = round((func(x0,y0 + ndelta) - func(x0,y0))/ndelta,2)
 D_y2 = round((func(x0,y0 + pdelta) - func(x0,y0))/pdelta,2)
-if round(D_y1 - D_y2) !=0:
+if math.isnan(D_y2) or math.isnan(D_y1):
+    D_x2 = "Không tồn tại đạo hàm riêng theo biến x tại M0"
+    xboo = False
+elif round(D_y1 - D_y2) !=0:
     D_y2 = "Không tồn tại đạo hàm riêng theo biến y tại M0"
     yboo = False
 
@@ -50,6 +58,8 @@ if xboo:
     # Vẽ cung góc (bán kính nhỏ)
     angle = np.arctan(D_x2)
     angle_deg = np.degrees(angle)
+    if angle_deg < 0:
+        angle_deg = angle_deg + 180
     arc = Arc((x0,func(x0,y0)), 8, 8, theta1=0, theta2=angle_deg,edgecolor='black')
     ax1.add_patch(arc)
     # Đặt nhãn alpha ở giữa cung
@@ -112,11 +122,13 @@ if yboo:
     # Vẽ cung góc (bán kính nhỏ)
     angle = np.arctan(D_y2)
     angle_deg = np.degrees(angle)
+    if angle_deg < 0:
+        angle_deg = angle_deg + 180
     arc = Arc((y0,func(x0,y0)), 8, 8, theta1=0, theta2=angle_deg,edgecolor='black')
     ax1.add_patch(arc)
     # Đặt nhãn alpha ở giữa cung
     mid_ang = angle/2
-    ax1.text(x0 + 5*np.cos(mid_ang), func(x0,y0) + 5*np.sin(mid_ang),r'$\beta$', fontsize=14)
+    ax1.text(y0 + 5*np.cos(mid_ang), func(x0,y0) + 5*np.sin(mid_ang),r'$\beta$', fontsize=14)
 
 ax1.set_title(f'Mặt cắt 2D theo mặt x = {x0}\n' + r"tan($\beta$)" + f"= f\'y(M0): {D_y2}")
 ax1.set_xlabel('y')
