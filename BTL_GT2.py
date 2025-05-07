@@ -27,7 +27,6 @@ if math.isnan(D_x2) or math.isnan(D_x1):
 elif round(D_x1 - D_x2) != 0:
     D_x2 = "Không tồn tại đạo hàm riêng theo biến x tại M0"
     xboo = False
-print(D_x1)
 
 #Cal Y - Partial Derivative
 D_y1 = round((func(x0,y0 + ndelta) - func(x0,y0))/ndelta,2)
@@ -89,7 +88,7 @@ if xboo:
     Zt = func(x0,y0) + D_x2 * t
     ax2.plot(Xt, Yt, Zt, color='cyan')
 
-ax2.plot_surface(X, Y, Z, cmap='Blues')
+ax2.plot_surface(X, Y, Z, cmap='YlOrBr')
 ax2.scatter(x0, y0, func(x0,y0), color='orange', s=50)
 ax2.text(x0,y0,func(x0,y0),f"M0({x0},{y0})")
 ax2.plot(x_line,y_line,z_line, color = "Blue")
@@ -153,7 +152,7 @@ if yboo:
     Zt = func(x0,y0) + D_y2 * t
     ax2.plot(Xt, Yt, Zt, color='cyan')
 
-ax2.plot_surface(X, Y, Z, cmap='Blues')
+ax2.plot_surface(X, Y, Z, cmap='YlOrBr')
 ax2.scatter(x0, y0, func(x0,y0), color='black', s=50)
 ax2.text(x0,y0,func(x0,y0),f"M0({x0},{y0})")
 ax2.plot(x_line,y_line,z_line, color ="Blue")
