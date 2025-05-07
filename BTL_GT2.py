@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import cm
 from sympy import symbols, sympify, lambdify
 from mpl_toolkits.mplot3d import Axes3D
-
+from matplotlib.patches import Arc
 
 #INP
 x, y = symbols('x y')
@@ -28,28 +28,38 @@ if round(D_x1 - D_x2) != 0:
 D_y1 = round((func(x0,y0 + ndelta) - func(x0,y0))/ndelta,2)
 D_y2 = round((func(x0,y0 + pdelta) - func(x0,y0))/pdelta,2)
 if round(D_y1 - D_y2) !=0:
-    D_y2 = "Không tồn tại đạo hàm riêng theo biến y tại M0M0"
+    D_y2 = "Không tồn tại đạo hàm riêng theo biến y tại M0"
     yboo = False
 
-#Draw with X-fig
-# Tạo figure 1
-fig1 = plt.figure(figsize=(10, 5))
+#Draw X-fig
 
-# Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
+#Tạo figure 1
+fig1 = plt.figure(figsize=(10, 5))
+#Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig1.add_subplot(1, 2, 1)
 x = np.linspace(x0 - 5, x0 + 5, 100)
 y = func(x,y0)
 
+#Vẽ 2D - x
 ax1.plot(x, y, color='blue', label ="Đường cong Cx")
 ax1.scatter(x0, func(x0,y0), color='orange', s=50)
 ax1.text(x0,func(x0,y0),"M0")
 if xboo:
-    ax1.plot(x,D_x2*(x-x0)+func(x0,y0), color ="cyan",label ="dx - Tiếp tuyến tại M0 của đường cong Cx")
+    ax1.plot(x,D_x2*(x-x0)+func(x0,y0), color ="cyan",label ="d1 - Tiếp tuyến tại M0 của đường cong Cx")
     ax1.axhline(y = func(x0,y0),color ="black", linestyle='--', linewidth=2)
+    # Vẽ cung góc (bán kính nhỏ)
+    angle = np.arctan(D_x2)
+    angle_deg = np.degrees(angle)
+    arc = Arc((x0,func(x0,y0)), 8, 8, theta1=0, theta2=angle_deg,edgecolor='black')
+    ax1.add_patch(arc)
+    # Đặt nhãn alpha ở giữa cung
+    mid_ang = angle/2
+    ax1.text(x0 + 5*np.cos(mid_ang), func(x0,y0) + 5*np.sin(mid_ang),r'$\alpha$', fontsize=14)
 
-ax1.set_title(f'Mặt cắt 2D theo mặt y0 = {y0}\nHệ số góc tại M0 của dx = f\'x(M0): {D_x2}')
+ax1.set_title(f'Mặt cắt 2D theo mặt y0 = {y0}\n' + r"tan($\alpha$)" + f"= f\'x(M0): {D_x2}")
 ax1.set_xlabel('x')
 ax1.set_ylabel('z')
+ax1.axis('equal')
 
 # Tạo subplot 3D ở vị trí 2 (trong lưới 1 hàng, 2 cột)
 ax2 = fig1.add_subplot(1, 2, 2, projection='3d')
@@ -61,6 +71,7 @@ x_line = np.linspace(x0 - 5, x0 + 5, 200)
 y_line = np.full_like(x0, y0)      
 z_line = func(x_line, y_line)
 
+#Vẽ 3D - x
 if xboo:
     t = np.linspace(-5, 5, 100)
     Xt = x0 + t
@@ -80,7 +91,9 @@ ax2.set_zlabel('z')
 
 plt.tight_layout()
 fig1.legend()
-#Draw with Y-fig
+
+#Draw Y-fig
+
 # Tạo figure 2
 fig2 = plt.figure(figsize=(10, 5))
 
@@ -89,16 +102,26 @@ ax1 = fig2.add_subplot(1, 2, 1)
 y = np.linspace(x0 - 5, x0 + 5, 100)
 z = func(x0,y)
 
+#Vẽ 2D - y
 ax1.plot(y, z, color='blue',label = "Đường cong Cy")
 ax1.scatter(y0, func(x0,y0), color='orange', s=50)
 ax1.text(y0,func(x0,y0),"M0")
 if yboo:
-    ax1.plot(y,D_y2*(y-y0)+func(x0,y0), color ="cyan", label ="dy - Tiếp tuyến tại M0 của đường cong Cy")
+    ax1.plot(y,D_y2*(y-y0)+func(x0,y0), color ="cyan", label ="d2 - Tiếp tuyến tại M0 của đường cong Cy")
     ax1.axhline(y = func(x0,y0),color ="black", linestyle='--', linewidth=2)
+    # Vẽ cung góc (bán kính nhỏ)
+    angle = np.arctan(D_y2)
+    angle_deg = np.degrees(angle)
+    arc = Arc((y0,func(x0,y0)), 8, 8, theta1=0, theta2=angle_deg,edgecolor='black')
+    ax1.add_patch(arc)
+    # Đặt nhãn alpha ở giữa cung
+    mid_ang = angle/2
+    ax1.text(x0 + 5*np.cos(mid_ang), func(x0,y0) + 5*np.sin(mid_ang),r'$\beta$', fontsize=14)
 
-ax1.set_title(f'Mặt cắt 2D theo mặt x0 = {x0}\nHệ số góc tại M0 của dy = f\'y(M0): {D_y2}')
+ax1.set_title(f'Mặt cắt 2D theo mặt x = {x0}\n' + r"tan($\beta$)" + f"= f\'y(M0): {D_y2}")
 ax1.set_xlabel('y')
 ax1.set_ylabel('z')
+ax1.axis('equal')
 
 # Tạo subplot 3D ở vị trí 2 (trong lưới 1 hàng, 2 cột)
 ax2 = fig2.add_subplot(1, 2, 2, projection='3d')
@@ -110,6 +133,7 @@ y_line = np.linspace(y0 - 5, y0 + 5, 200)
 x_line = np.full_like(y0,x0)  
 z_line = func(x_line, y_line)
 
+#Vẽ 3D - y
 if yboo:
     t = np.linspace(-5, 5, 100)
     Xt = np.full_like(t, x0)
