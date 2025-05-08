@@ -35,7 +35,7 @@ elif round(D_x1 - D_x2) != 0:
 D_y1 = round((func(x0,y0 + ndelta) - func(x0,y0))/ndelta,2)
 D_y2 = round((func(x0,y0 + pdelta) - func(x0,y0))/pdelta,2)
 if math.isnan(D_y2) or math.isnan(D_y1):
-    D_x2 = "Không tồn tại đạo hàm riêng theo biến x tại M0"
+    D_y2 = "Không tồn tại đạo hàm riêng theo biến y tại M0"
     xboo = False
 elif round(D_y1 - D_y2) !=0:
     D_y2 = "Không tồn tại đạo hàm riêng theo biến y tại M0"
@@ -62,11 +62,11 @@ if xboo:
     angle_deg = np.degrees(angle)
     if angle_deg < 0:
         angle_deg = angle_deg + 180
-    arc = Arc((x0,func(x0,y0)), 8, 8, theta1=0, theta2=angle_deg,edgecolor='black')
+    arc = Arc((x0,func(x0,y0)), 1, 1, theta1=0, theta2=angle_deg,edgecolor='black')
     ax1.add_patch(arc)
     # Đặt nhãn alpha ở giữa cung
     mid_ang = angle/2
-    ax1.text(x0 + 5*np.cos(mid_ang), func(x0,y0) + 5*np.sin(mid_ang),r'$\alpha$', fontsize=14)
+    ax1.text(x0 + 0.75*np.cos(mid_ang), func(x0,y0) + 0.75*np.sin(mid_ang),r'$\alpha$', fontsize=14)
 
 ax1.set_title(f'Mặt cắt 2D theo mặt y0 = {y0}\n' + r"tan($\alpha$)" + f"= f\'x(M0): {D_x2}")
 ax1.set_xlabel('x')
@@ -111,7 +111,7 @@ fig2 = plt.figure(figsize=(10, 5))
 
 # Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig2.add_subplot(1, 2, 1)
-y = np.linspace(y0 - 5, y0 + 5, 100)
+y = np.linspace(y0 - 1, y0 + 1, 100)
 z = func(x0,y)
 
 #Vẽ 2D - y
@@ -126,11 +126,11 @@ if yboo:
     angle_deg = np.degrees(angle)
     if angle_deg < 0:
         angle_deg = angle_deg + 180
-    arc = Arc((y0,func(x0,y0)), 8, 8, theta1=0, theta2=angle_deg,edgecolor='black')
+    arc = Arc((y0,func(x0,y0)), 1, 1, theta1=0, theta2=angle_deg,edgecolor='black')
     ax1.add_patch(arc)
     # Đặt nhãn alpha ở giữa cung
     mid_ang = angle/2
-    ax1.text(y0 + 5*np.cos(mid_ang), func(x0,y0) + 5*np.sin(mid_ang),r'$\beta$', fontsize=14)
+    ax1.text(y0 + 0.75*np.cos(mid_ang), func(x0,y0) + 0.75*np.sin(mid_ang),r'$\beta$', fontsize=14)
 
 ax1.set_title(f'Mặt cắt 2D theo mặt x = {x0}\n' + r"tan($\beta$)" + f"= f\'y(M0): {D_y2}")
 ax1.set_xlabel('y')
