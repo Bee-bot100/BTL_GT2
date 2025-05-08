@@ -165,6 +165,8 @@ ax2.set_xlabel('x')
 ax2.set_ylabel('y')
 ax2.set_zlabel('z')
 
+#Draw fig3 - Grad + Surface
+
 plt.tight_layout()
 fig2.legend()
 plt.show()
