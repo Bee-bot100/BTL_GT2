@@ -45,10 +45,10 @@ fig1 = plt.figure(figsize=(10, 5))
 #Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig1.add_subplot(1, 2, 1)
 x = np.linspace(x0 - 5, x0 + 5, 100)
-y = func(x,y0)
+z = func(x,y0)
 
 #Vẽ 2D - x
-ax1.plot(x, y, color='blue', label ="Đường cong Cx")
+ax1.plot(x, z, color='blue', label ="Đường cong Cx")
 ax1.scatter(x0, func(x0,y0), color='orange', s=50)
 ax1.text(x0,func(x0,y0),"M0")
 if xboo:
@@ -108,7 +108,7 @@ fig2 = plt.figure(figsize=(10, 5))
 
 # Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig2.add_subplot(1, 2, 1)
-y = np.linspace(x0 - 5, x0 + 5, 100)
+y = np.linspace(y0 - 5, y0 + 5, 100)
 z = func(x0,y)
 
 #Vẽ 2D - y
