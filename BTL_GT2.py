@@ -19,6 +19,9 @@ yboo = True
 #Cal X - Partial Derivative
 pdelta = 10**(-9)
 ndelta = -10**(-9)
+if math.isnan(func(x0,y0)):
+    xboo = False
+    yboo = False
 D_x1 = round((func(x0 + ndelta,y0) - func(x0,y0))/ndelta,2)
 D_x2 = round((func(x0 + pdelta,y0) - func(x0,y0))/pdelta,2)
 if math.isnan(D_x2) or math.isnan(D_x1):
@@ -44,7 +47,7 @@ elif round(D_y1 - D_y2) !=0:
 fig1 = plt.figure(figsize=(10, 5))
 #Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig1.add_subplot(1, 2, 1)
-x = np.linspace(x0 - 5, x0 + 5, 100)
+x = np.linspace(x0 - 1, x0 + 1, 100)
 z = func(x,y0)
 
 #Vẽ 2D - x
@@ -72,11 +75,11 @@ ax1.axis('equal')
 
 # Tạo subplot 3D ở vị trí 2 (trong lưới 1 hàng, 2 cột)
 ax2 = fig1.add_subplot(1, 2, 2, projection='3d')
-X = np.linspace(x0 - 5, x0 + 5, 100)
-Y = np.linspace(y0 - 5, y0 + 5, 100)
+X = np.linspace(x0 - 1, x0 + 1, 100)
+Y = np.linspace(y0 - 1, y0 + 1, 100)
 X, Y = np.meshgrid(X, Y)
 Z = func(X,Y)
-x_line = np.linspace(x0 - 5, x0 + 5, 200)
+x_line = np.linspace(x0 - 1, x0 + 1, 200)
 y_line = np.full_like(x0, y0)      
 z_line = func(x_line, y_line)
 
@@ -88,7 +91,7 @@ if xboo:
     Zt = func(x0,y0) + D_x2 * t
     ax2.plot(Xt, Yt, Zt, color='cyan')
 
-ax2.plot_surface(X, Y, Z, cmap='YlOrBr')
+ax2.plot_surface(X, Y, Z, cmap='Pastel1')
 ax2.scatter(x0, y0, func(x0,y0), color='orange', s=50)
 ax2.text(x0,y0,func(x0,y0),f"M0({x0},{y0})")
 ax2.plot(x_line,y_line,z_line, color = "Blue")
@@ -136,11 +139,11 @@ ax1.axis('equal')
 
 # Tạo subplot 3D ở vị trí 2 (trong lưới 1 hàng, 2 cột)
 ax2 = fig2.add_subplot(1, 2, 2, projection='3d')
-X = np.linspace(x0 - 5, x0 + 5, 100)
-Y = np.linspace(y0 - 5, y0 + 5, 100)
+X = np.linspace(x0 - 1, x0 + 1, 100)
+Y = np.linspace(y0 - 1, y0 + 1, 100)
 X, Y = np.meshgrid(X, Y)
 Z = func(X,Y)
-y_line = np.linspace(y0 - 5, y0 + 5, 200)   
+y_line = np.linspace(y0 - 1, y0 + 1, 200)   
 x_line = np.full_like(y0,x0)  
 z_line = func(x_line, y_line)
 
@@ -152,7 +155,7 @@ if yboo:
     Zt = func(x0,y0) + D_y2 * t
     ax2.plot(Xt, Yt, Zt, color='cyan')
 
-ax2.plot_surface(X, Y, Z, cmap='YlOrBr')
+ax2.plot_surface(X, Y, Z, cmap='binary')
 ax2.scatter(x0, y0, func(x0,y0), color='black', s=50)
 ax2.text(x0,y0,func(x0,y0),f"M0({x0},{y0})")
 ax2.plot(x_line,y_line,z_line, color ="Blue")
