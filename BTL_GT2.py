@@ -47,7 +47,7 @@ elif round(D_y1 - D_y2) !=0:
 fig1 = plt.figure(figsize=(10, 5))
 #Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig1.add_subplot(1, 2, 1)
-x = np.linspace(x0 - 0.3, x0 + 0.3, 100)
+x = np.linspace(x0 - 1, x0 + 1, 100)
 z = func(x,y0)
 
 #Vẽ 2D - x
@@ -111,7 +111,7 @@ fig2 = plt.figure(figsize=(10, 5))
 
 # Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig2.add_subplot(1, 2, 1)
-y = np.linspace(y0 - 0.3, y0 + 0.3, 100)
+y = np.linspace(y0 - 1, y0 + 1, 100)
 z = func(x0,y)
 
 #Vẽ 2D - y
@@ -182,7 +182,7 @@ ax.text(x0,y0,func(x0,y0),f"M0({x0},{y0})")
 #Vẽ MPTT
 if xboo and yboo:
     T = func(x0,y0) + D_x2 * (X - x0) + D_y2 * (Y - y0)
-    ax.plot_surface(X, Y, T, alpha=0.5, rstride=1, cstride=1,label ="Mặt phẳng tiếp tuyến của f tại M0")
+    ax.plot_surface(X, Y, T,alpha=0.5, rstride=1, cstride=1, label ="Mặt phẳng tiếp tuyến của f tại M0")
 #Vẽ tiếp tuyến - x
 if xboo:
     t = np.linspace(-0.3, 0.3, 100)
@@ -201,7 +201,7 @@ if yboo:
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_zlabel('f(x, y)')
-ax.legend()
+fig3.legend()
 plt.title(f"Đồ thị hàm và tiếp tuyến tại M0({x0}, {y0})")
 plt.tight_layout()
 plt.show()
