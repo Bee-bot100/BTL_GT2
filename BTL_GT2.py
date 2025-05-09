@@ -47,7 +47,7 @@ elif round(D_y1 - D_y2) !=0:
 fig1 = plt.figure(figsize=(10, 5))
 #Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig1.add_subplot(1, 2, 1)
-x = np.linspace(x0 - 1, x0 + 1, 100)
+x = np.linspace(x0 - 0.3, x0 + 0.3, 100)
 z = func(x,y0)
 
 #Vẽ 2D - x
@@ -62,11 +62,11 @@ if xboo:
     angle_deg = np.degrees(angle)
     if angle_deg < 0:
         angle_deg = angle_deg + 180
-    arc = Arc((x0,func(x0,y0)), 1, 1, theta1=0, theta2=angle_deg,edgecolor='black')
+    arc = Arc((x0,func(x0,y0)), 0.2, 0.2, theta1=0, theta2=angle_deg,edgecolor='black')
     ax1.add_patch(arc)
     # Đặt nhãn alpha ở giữa cung
     mid_ang = angle/2
-    ax1.text(x0 + 0.75*np.cos(mid_ang), func(x0,y0) + 0.75*np.sin(mid_ang),r'$\alpha$', fontsize=14)
+    ax1.text(x0 + 0.15*np.cos(mid_ang), func(x0,y0) + 0.15*np.sin(mid_ang),r'$\alpha$', fontsize=14)
 
 ax1.set_title(f'Mặt cắt 2D theo mặt y0 = {y0}\n' + r"tan($\alpha$)" + f"= f\'x(M0): {D_x2}")
 ax1.set_xlabel('x')
@@ -75,23 +75,23 @@ ax1.axis('equal')
 
 # Tạo subplot 3D ở vị trí 2 (trong lưới 1 hàng, 2 cột)
 ax2 = fig1.add_subplot(1, 2, 2, projection='3d')
-X = np.linspace(x0 - 1, x0 + 1, 100)
-Y = np.linspace(y0 - 1, y0 + 1, 100)
+X = np.linspace(x0 - 0.3, x0 + 0.3, 100)
+Y = np.linspace(y0 - 0.3, y0 + 0.3, 100)
 X, Y = np.meshgrid(X, Y)
 Z = func(X,Y)
-x_line = np.linspace(x0 - 1, x0 + 1, 200)
+x_line = np.linspace(x0 - 0.3, x0 + 0.3, 200)
 y_line = np.full_like(x0, y0)      
 z_line = func(x_line, y_line)
 
 #Vẽ 3D - x
 if xboo:
-    t = np.linspace(-5, 5, 100)
+    t = np.linspace(-0.3, 0.3, 100)
     Xt = x0 + t
     Yt = np.full_like(t, y0)
     Zt = func(x0,y0) + D_x2 * t
     ax2.plot(Xt, Yt, Zt, color='cyan')
 
-ax2.plot_surface(X, Y, Z, cmap='Pastel1')
+ax2.plot_surface(X, Y, Z, cmap='binary')
 ax2.scatter(x0, y0, func(x0,y0), color='orange', s=50)
 ax2.text(x0,y0,func(x0,y0),f"M0({x0},{y0})")
 ax2.plot(x_line,y_line,z_line, color = "Blue")
@@ -111,7 +111,7 @@ fig2 = plt.figure(figsize=(10, 5))
 
 # Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig2.add_subplot(1, 2, 1)
-y = np.linspace(y0 - 1, y0 + 1, 100)
+y = np.linspace(y0 - 0.3, y0 + 0.3, 100)
 z = func(x0,y)
 
 #Vẽ 2D - y
@@ -126,11 +126,11 @@ if yboo:
     angle_deg = np.degrees(angle)
     if angle_deg < 0:
         angle_deg = angle_deg + 180
-    arc = Arc((y0,func(x0,y0)), 1, 1, theta1=0, theta2=angle_deg,edgecolor='black')
+    arc = Arc((y0,func(x0,y0)), 0.2, 0.2, theta1=0, theta2=angle_deg,edgecolor='black')
     ax1.add_patch(arc)
     # Đặt nhãn alpha ở giữa cung
     mid_ang = angle/2
-    ax1.text(y0 + 0.75*np.cos(mid_ang), func(x0,y0) + 0.75*np.sin(mid_ang),r'$\beta$', fontsize=14)
+    ax1.text(y0 + 0.15*np.cos(mid_ang), func(x0,y0) + 0.15*np.sin(mid_ang),r'$\beta$', fontsize=14)
 
 ax1.set_title(f'Mặt cắt 2D theo mặt x = {x0}\n' + r"tan($\beta$)" + f"= f\'y(M0): {D_y2}")
 ax1.set_xlabel('y')
@@ -139,17 +139,17 @@ ax1.axis('equal')
 
 # Tạo subplot 3D ở vị trí 2 (trong lưới 1 hàng, 2 cột)
 ax2 = fig2.add_subplot(1, 2, 2, projection='3d')
-X = np.linspace(x0 - 1, x0 + 1, 100)
-Y = np.linspace(y0 - 1, y0 + 1, 100)
+X = np.linspace(x0 - 0.3, x0 + 0.3, 100)
+Y = np.linspace(y0 - 0.3, y0 + 0.3, 100)
 X, Y = np.meshgrid(X, Y)
 Z = func(X,Y)
-y_line = np.linspace(y0 - 1, y0 + 1, 200)   
+y_line = np.linspace(y0 - 0.3, y0 + 0.3, 200)   
 x_line = np.full_like(y0,x0)  
 z_line = func(x_line, y_line)
 
 #Vẽ 3D - y
 if yboo:
-    t = np.linspace(-5, 5, 100)
+    t = np.linspace(-0.3, 0.3, 100)
     Xt = np.full_like(t, x0)
     Yt = y0 + t
     Zt = func(x0,y0) + D_y2 * t
@@ -165,8 +165,43 @@ ax2.set_xlabel('x')
 ax2.set_ylabel('y')
 ax2.set_zlabel('z')
 
-#Draw fig3 - Grad + Surface
-
-plt.tight_layout()
 fig2.legend()
+#Draw fig3 - Grad + Surface
+fig3 = plt.figure(figsize = (10,5))
+ax = fig3.add_subplot(111, projection='3d')
+
+#Vẽ đồ thị 3D
+X = np.linspace(x0 - 0.3, x0 + 0.3, 100)
+Y = np.linspace(y0 - 0.3, y0 + 0.3, 100)
+X, Y = np.meshgrid(X, Y)
+Z = func(X,Y)
+
+ax.plot_surface(X, Y, Z, alpha=0.7, rstride=1, cstride=1)
+ax.scatter(x0, y0, func(x0,y0), color='black', s=50)
+ax.text(x0,y0,func(x0,y0),f"M0({x0},{y0})")
+#Vẽ MPTT
+if xboo and yboo:
+    T = func(x0,y0) + D_x2 * (X - x0) + D_y2 * (Y - y0)
+    ax.plot_surface(X, Y, T, alpha=0.5, rstride=1, cstride=1,label ="Mặt phẳng tiếp tuyến của f tại M0")
+#Vẽ tiếp tuyến - x
+if xboo:
+    t = np.linspace(-0.3, 0.3, 100)
+    Xt = x0 + t
+    Yt = np.full_like(t, y0)
+    Zt = func(x0,y0) + D_x2 * t
+    ax.plot(Xt, Yt, Zt, color='red',label='∂f/∂x tại M0')
+#Vẽ tiếp tuyến - y
+if yboo:
+    t = np.linspace(-0.3, 0.3, 100)
+    xt = np.full_like(t, x0)
+    yt = y0 + t
+    zt = func(x0,y0) + D_y2 * t
+    ax.plot(xt, yt, zt, color='green', label='∂f/∂y tại M0')
+
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('f(x, y)')
+ax.legend()
+plt.title(f"Đồ thị hàm và tiếp tuyến tại M0({x0}, {y0})")
+plt.tight_layout()
 plt.show()
