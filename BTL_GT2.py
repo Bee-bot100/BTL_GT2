@@ -47,7 +47,7 @@ elif round(D_y1 - D_y2) !=0:
 fig1 = plt.figure(figsize=(10, 5))
 #Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig1.add_subplot(1, 2, 1)
-x = np.linspace(x0 - 1, x0 + 1, 100)
+x = np.linspace(x0 - 0.3, x0 + 0.3, 100)
 z = func(x,y0)
 
 #Vẽ 2D - x
@@ -111,7 +111,7 @@ fig2 = plt.figure(figsize=(10, 5))
 
 # Tạo subplot 2D ở vị trí 1 (trong lưới 1 hàng, 2 cột)
 ax1 = fig2.add_subplot(1, 2, 1)
-y = np.linspace(y0 - 1, y0 + 1, 100)
+y = np.linspace(y0 - 0.3, y0 + 0.3, 100)
 z = func(x0,y)
 
 #Vẽ 2D - y
@@ -171,8 +171,8 @@ fig3 = plt.figure(figsize = (10,5))
 ax = fig3.add_subplot(111, projection='3d')
 
 #Vẽ đồ thị 3D
-X = np.linspace(x0 - 0.3, x0 + 0.3, 100)
-Y = np.linspace(y0 - 0.3, y0 + 0.3, 100)
+X = np.linspace(x0 - 0.3, x0 + 0.3, 50)
+Y = np.linspace(y0 - 0.3, y0 + 0.3, 50)
 X, Y = np.meshgrid(X, Y)
 Z = func(X,Y)
 
@@ -197,7 +197,9 @@ if yboo:
     yt = y0 + t
     zt = func(x0,y0) + D_y2 * t
     ax.plot(xt, yt, zt, color='green', label='∂f/∂y tại M0')
-
+#Vẽ grad-Vec
+if xboo and yboo:    
+    ax.quiver(x0, y0, func(x0,y0), D_x2/(5*np.sqrt(D_x2**2 + D_y2**2)), D_y2/(5*np.sqrt(D_x2**2 + D_y2**2)), 0,label = "Vector gradiant", color='black', arrow_length_ratio=0.3)
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_zlabel('f(x, y)')
