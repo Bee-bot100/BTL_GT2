@@ -195,14 +195,14 @@ def main():
         Xt = x0 + t
         Yt = np.full_like(t, y0)
         Zt = func(x0,y0) + D_x * t
-        ax.plot(Xt, Yt, Zt, color='red',label='∂f/∂x tại M0')
+        ax.plot(Xt, Yt, Zt, color='red',label='d1')
     #Vẽ tiếp tuyến - y
     if yboo:
         t = np.linspace(-0.3, 0.3, 100)
         xt = np.full_like(t, x0)
         yt = y0 + t
         zt = func(x0,y0) + D_y * t
-        ax.plot(xt, yt, zt, color='green', label='∂f/∂y tại M0')
+        ax.plot(xt, yt, zt, color='green', label='d2')
     ax.set_xlabel('x')
     ax.set_ylabel('y')
     ax.set_zlabel('f(x, y)')
@@ -214,13 +214,13 @@ def main():
     ax = plt.gca() # lấy đối tượng Axes hiện tại
 
     # Bước 3: Tạo lưới điểm và tính Z
-    x = np.linspace(-3, 3, 200)
-    y = np.linspace(-3, 3, 200)
+    x = np.linspace(x0 - 1, x0 + 1, 200)
+    y = np.linspace(y0 - 1, y0 + 1, 200)
     X, Y = np.meshgrid(x, y)
     Z = func(X, Y)
 
     # Bước 4: Vẽ contour
-    levels = 15 # số đường đồng mức
+    levels = 50 # số đường đồng mức
     cs = ax.contour(X, Y, Z, levels=levels, linewidths=1)
 
     # Tô màu giữa các vùng contour
@@ -230,7 +230,7 @@ def main():
     ax.set_xlabel('x')
     ax.set_ylabel('y')
     if xboo and yboo:    
-        ax.quiver(x0, y0, D_x/(5*np.sqrt(D_x**2 + D_y**2)), D_y/(5*np.sqrt(D_x**2 + D_y**2)), label = "Vector gradiant", color='black')
+        ax.quiver(x0, y0, D_x/(5*np.sqrt(D_x**2 + D_y**2)), D_y/(5*np.sqrt(D_x**2 + D_y**2)), label = f"Vector gradiant ({D_x},{D_y})", color='black')
     fig4.legend()
 
     plt.tight_layout()
